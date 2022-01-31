@@ -51,8 +51,8 @@ Introduce your projects by taking a screenshot or a gif. Try to tell visitors a 
 <!-- This section should list any major frameworks that you built your project using. Here are a few examples.-->
 
 - [React](https://reactjs.org/)
-- [Vue.js](https://vuejs.org/)
-- [Tailwind](https://tailwindcss.com/)
+<!-- - [Vue.js](https://vuejs.org/)
+- [Tailwind](https://tailwindcss.com/) -->
 
 ## Features
 
@@ -87,6 +87,6 @@ $ npm start
 
 ## Contact
 
-- Website [your-website.com](https://{your-web-site-link})
-- GitHub [@your-username](https://{github.com/your-usermame})
-- Twitter [@your-twitter](https://{twitter.com/your-username})
+<!-- - Website [your-website.com](https://{your-web-site-link}) -->
+- GitHub [debo9210](https://{github.com/debo9210})
+- Twitter [@debo9210](https://{twitter.com/debo9210})
