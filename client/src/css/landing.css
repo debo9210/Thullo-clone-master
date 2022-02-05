@@ -1,0 +1,192 @@
+.Landing {
+  display: flex;
+  margin: 45px auto;
+  border-radius: 10px;
+  width: 94%;
+  height: 85vh;
+  background: #d9ddea;
+}
+
+.LandingContainer {
+  /* border: 1px solid red; */
+  display: flex;
+  margin: 30px auto;
+  width: 90%;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.LandingLogo {
+  /* border: 1px solid blue; */
+  width: 50%;
+}
+
+.LandingImage {
+  /* border: 1px solid orangered; */
+  width: 100%;
+  height: 100%;
+  padding: 0 20px;
+  background: rgb(243, 238, 238);
+}
+
+.LoginSide {
+  /* border: 1px solid green; */
+  width: 50%;
+}
+
+.LoginContainer {
+  /* border: 1px solid peru; */
+  width: 70%;
+  margin: 40px auto;
+}
+
+.LoginContainer h2 {
+  font-weight: 200;
+  font-size: 22px;
+  text-align: left;
+  margin: 0 0 15px 0;
+}
+
+.LoginInputGroup {
+  /* border: 1px solid red; */
+  padding: 0;
+}
+
+.InputGroup {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.InputGroup label {
+  text-align: left;
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+
+.InputGroup input {
+  padding: 12px 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.InputGroup input:focus {
+  outline: none;
+}
+
+.InputGroup2 {
+  display: flex;
+  align-items: center;
+  /* border: 1px solid red; */
+}
+
+.PasswordContainer {
+  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 5px;
+}
+
+.PasswordContainer input {
+  border: none;
+  width: 65%;
+}
+
+.PasswordContainer span {
+  /* width: 25%; */
+  color: #5d7aef;
+  font-size: 12px;
+  font-weight: 500;
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+.rememberPasword {
+  font-size: 10px;
+  margin-left: 3px;
+}
+
+.LoginBtn {
+  margin: 20px 0 20px 0;
+  width: 100%;
+  color: #ccc;
+  background-color: #3554d1;
+  padding: 12px 0;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.LoginBtn:focus {
+  outline: none;
+}
+
+.NoAcct {
+  /* border: 1px solid blue; */
+  margin-bottom: 3px;
+}
+
+.NoAcct small {
+  font-size: 11px;
+  font-weight: 500;
+  margin-right: 5px;
+}
+
+.SignUp {
+  color: #8497e2;
+  cursor: pointer;
+}
+
+.BreakLine {
+  margin: 20px auto;
+  color: #b9c0ce;
+  text-align: center;
+  font-size: 12px;
+  font-weight: unset;
+  /* max-width: 600px; */
+  position: relative;
+}
+.BreakLine:before {
+  content: '';
+  display: block;
+  width: 185px;
+  height: 1px;
+  background: #b9c0ce;
+  left: 0;
+  top: 50%;
+  position: absolute;
+}
+.BreakLine:after {
+  content: '';
+  display: block;
+  width: 185px;
+  height: 1px;
+  background: #b9c0ce;
+  right: 0;
+  top: 50%;
+  position: absolute;
+}
+
+.GoogleAuth {
+  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background: transparent;
+  border-radius: 5px;
+  padding: 10px 0;
+  cursor: pointer;
+}
+
+.GoogleAuth img {
+  width: 20px;
+}
+
+.GoogleAuth span {
+  margin-left: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #5c5d5f;
+}
