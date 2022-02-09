@@ -1,10 +1,11 @@
 .Landing {
   display: flex;
-  margin: 45px auto;
+  margin: 30px auto;
   border-radius: 10px;
   width: 94%;
   height: 85vh;
   background: #d9ddea;
+  /* border: 1px solid red; */
 }
 
 .LandingContainer {
@@ -29,25 +30,38 @@
   background: rgb(243, 238, 238);
 }
 
-.LoginSide {
-  /* border: 1px solid green; */
+.AuthContainer {
+  /* border: 1px solid blue; */
   width: 50%;
 }
 
-.LoginContainer {
+.LoginSide,
+.SignUpSide,
+.ResetPassSide {
+  /* border: 1px solid green; */
+  /* width: 50%; */
+  width: 100%;
+}
+
+.LoginContainer,
+.SignUpContainer,
+.ResetPassSideContainer {
   /* border: 1px solid peru; */
   width: 70%;
   margin: 40px auto;
 }
 
-.LoginContainer h2 {
+.LoginContainer h2,
+.SignUpContainer h2,
+.ResetPassSideContainer h2 {
   font-weight: 200;
   font-size: 22px;
   text-align: left;
   margin: 0 0 15px 0;
 }
 
-.LoginInputGroup {
+.LoginInputGroup,
+.SignUpInputGroup {
   /* border: 1px solid red; */
   padding: 0;
 }
@@ -107,7 +121,9 @@
   margin-left: 3px;
 }
 
-.LoginBtn {
+.LoginBtn,
+.SignUpBtn,
+.UpdatePassBtn {
   margin: 20px 0 20px 0;
   width: 100%;
   color: #ccc;
@@ -118,8 +134,18 @@
   cursor: pointer;
 }
 
-.LoginBtn:focus {
+.SignUpBtn {
+  margin: 10px 0 10px 0;
+}
+
+.LoginBtn:focus,
+.SignUpBtn:focus {
   outline: none;
+}
+
+.LoginBtn:hover,
+.SignUpBtn:hover {
+  background-color: #4e64bd;
 }
 
 .NoAcct {
@@ -189,4 +215,12 @@
   font-size: 12px;
   font-weight: 600;
   color: #5c5d5f;
+}
+
+.goBack {
+  display: block;
+  color: #8497e2;
+  text-align: left;
+  cursor: pointer;
+  /* border: 1px solid red; */
 }

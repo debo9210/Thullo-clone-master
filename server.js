@@ -4,6 +4,8 @@ const path = require('path');
 const colors = require('colors');
 const passport = require('passport');
 
+const users = require('./routes/api/users');
+
 const app = express();
 
 //db congig
@@ -20,6 +22,9 @@ mongoose
 //body parser
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+//Use Routes
+app.use('/api/users', users);
 
 //server static assets if in production
 if (process.env.NODE_ENV === 'production') {
