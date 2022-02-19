@@ -1,8 +1,17 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import { errorsReducer } from './redux/reducers/errorReducers';
+import {
+  registerUserReducer,
+  currentUserReducer,
+} from './redux/reducers/authReducers';
 
-const reducers = combineReducers({});
+const reducers = combineReducers({
+  errors: errorsReducer,
+  registerUser: registerUserReducer,
+  currentUser: currentUserReducer,
+});
 
 const initialState = {};
 

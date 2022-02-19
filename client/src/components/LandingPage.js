@@ -1,19 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import InputGroup from './InputGroup';
+import { registerUser, loginUser } from '../redux/actions/authActions';
 import landingLogo from '../images/Logo.svg';
 import googleLogo from '../images/google-logo.jpg';
 import '../css/landing.css';
 
 const LandingPage = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [password2, setPassword2] = useState('');
   const [loginSide, setLoginSide] = useState(true);
   const [signUpSide, setSignUpSide] = useState(false);
   const [resetPassSide, setResetPassSide] = useState(false);
 
+  const errors = useSelector((state) => state.errors);
+  const registerStatus = useSelector((state) => state.registerUser);
+  const currentUser = useSelector((state) => state.currentUser);
+
   const signUpHandler = () => {
-    navigate('/sign-up');
+    // navigate('/sign-up');
+
+    const formData = {
+      name,
+      email,
+      password,
+      password2,
+    };
+
+    dispatch(registerUser(formData));
+
+    setTimeout(() => {
+      setName('');
+      setEmail('');
+      setPassword('');
+      setPassword2('');
+    }, 2000);
+  };
+
+  const loginUserHandler = () => {
+    // navigate('/sign-up');
+
+    const formData = {
+      email,
+      password,
+    };
+    dispatch(loginUser(formData));
   };
 
   const toggleAuthHandler = (e) => {
@@ -48,6 +85,8 @@ const LandingPage = () => {
             inputType='text'
             inputName='name'
             placeholderName='Name'
+            inputValueHandler={(e) => setName(e.target.value)}
+            error={errors.name}
           />
 
           <InputGroup
@@ -55,6 +94,8 @@ const LandingPage = () => {
             inputType='email'
             inputName='email'
             placeholderName='name@mail.com'
+            inputValueHandler={(e) => setEmail(e.target.value)}
+            error={errors.email}
           />
 
           <InputGroup
@@ -62,6 +103,8 @@ const LandingPage = () => {
             inputType='password'
             inputName='password'
             placeholderName='Password here'
+            inputValueHandler={(e) => setPassword(e.target.value)}
+            error={errors.password}
           />
 
           <InputGroup
@@ -69,9 +112,13 @@ const LandingPage = () => {
             inputType='password'
             inputName='confirm-password'
             placeholderName='Confirm Password'
+            inputValueHandler={(e) => setPassword2(e.target.value)}
+            error={errors.password2}
           />
 
-          <button className='SignUpBtn'>Sign up</button>
+          <button className='SignUpBtn' onClick={signUpHandler}>
+            Sign up
+          </button>
           <small className='goBack' onClick={toggleAuthHandler}>
             Back
           </small>
@@ -90,6 +137,8 @@ const LandingPage = () => {
             inputType='email'
             inputName='email'
             placeholderName='name@mail.com'
+            inputValueHandler={(e) => setEmail(e.target.value)}
+            error={errors.email}
           />
 
           <div className='InputGroup'>
@@ -99,15 +148,19 @@ const LandingPage = () => {
                 type='password'
                 name='password'
                 placeholder='Password here'
+                onChange={(e) => setPassword(e.target.value)}
               />
               <span onClick={toggleAuthHandler}>Reset Password</span>
             </div>
+            <small className='errorMsg'>{errors ? errors.password : ''}</small>
           </div>
           <div className='InputGroup2'>
             <input type='checkbox' name='checkbox' />
             <small className='rememberPasword'>Remember Password</small>
           </div>
-          <button className='LoginBtn'>Login</button>
+          <button className='LoginBtn' onClick={loginUserHandler}>
+            Login
+          </button>
           <div className='InputGroup2 NoAcct'>
             <small>Don't have an account?</small>
             <small className='SignUp' onClick={toggleAuthHandler}>
@@ -157,6 +210,17 @@ const LandingPage = () => {
       </div>
     </div>
   );
+
+  useEffect(() => {
+    if (registerStatus.isUserRegistered) {
+      setSignUpSide(false);
+      setLoginSide(true);
+    }
+
+    if (currentUser.isAuthenticated) {
+      navigate('/dashboard');
+    }
+  }, [registerStatus, currentUser, navigate]);
 
   return (
     <div className='Landing'>

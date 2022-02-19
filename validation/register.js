@@ -24,7 +24,7 @@ module.exports = validateRegisterInput = (data) => {
     errors.email = 'Email is invalid';
   }
 
-  if (Validator.isEmail(data.email)) {
+  if (Validator.isEmpty(data.email)) {
     errors.email = 'Email field is required';
   }
 
@@ -37,12 +37,12 @@ module.exports = validateRegisterInput = (data) => {
       'Password must be atleast one upper case, lowercase, number, symbol and must be between 6 and 30 characters';
   }
 
-  if (!Validator.isEmpty(data.password)) {
+  if (Validator.isEmpty(data.password)) {
     errors.password = 'Password field is required';
   }
 
-  if (!Validator.isEmpty(data.password2)) {
-    errors.password = 'Confirm password field is required';
+  if (Validator.isEmpty(data.password2)) {
+    errors.password2 = 'Confirm password field is required';
   }
 
   if (!Validator.equals(data.password, data.password2)) {
