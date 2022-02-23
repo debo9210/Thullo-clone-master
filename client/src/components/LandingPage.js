@@ -2,10 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import InputGroup from './InputGroup';
-import { registerUser, loginUser } from '../redux/actions/authActions';
+import {
+  registerUser,
+  loginUser,
+  updateUserPass,
+} from '../redux/actions/authActions';
+import { showPassHandler } from '../utils/showPassHandler';
 import landingLogo from '../images/Logo.svg';
 import googleLogo from '../images/google-logo.jpg';
 import '../css/landing.css';
+import { GET_CURRENT_PASSWORD_SUCCESS } from '../redux/constant';
 
 const LandingPage = () => {
   const dispatch = useDispatch();
@@ -15,6 +21,8 @@ const LandingPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
+  const [newPass, setNewPass] = useState('');
+  const [newPass2, setNewPass2] = useState('');
   const [loginSide, setLoginSide] = useState(true);
   const [signUpSide, setSignUpSide] = useState(false);
   const [resetPassSide, setResetPassSide] = useState(false);
@@ -22,6 +30,7 @@ const LandingPage = () => {
   const errors = useSelector((state) => state.errors);
   const registerStatus = useSelector((state) => state.registerUser);
   const currentUser = useSelector((state) => state.currentUser);
+  const { currentPass } = useSelector((state) => state.pass);
 
   const signUpHandler = () => {
     // navigate('/sign-up');
@@ -50,6 +59,7 @@ const LandingPage = () => {
       email,
       password,
     };
+
     dispatch(loginUser(formData));
   };
 
@@ -73,6 +83,16 @@ const LandingPage = () => {
     setResetPassSide(false);
     setLoginSide(true);
     // setSignUpSide(false);
+  };
+
+  const getCurrentPassHandler = () => {
+    const formData = {
+      email,
+      password,
+      newPass,
+      newPass2,
+    };
+    dispatch(updateUserPass(formData));
   };
 
   const SIGNUP = (
@@ -183,27 +203,64 @@ const LandingPage = () => {
         <h2>Reset Pass</h2>
         <div className='SignUpInputGroup'>
           <InputGroup
+            labelName='Email address'
+            inputType='email'
+            inputName='email'
+            placeholderName='name@mail.com'
+            inputValueHandler={(e) => setEmail(e.target.value)}
+            error={errors.email}
+          />
+
+          <InputGroup
             labelName='Current Password'
             inputType='password'
             inputName='current-password'
             placeholderName='Current Password'
+            inputValueHandler={(e) => setPassword(e.target.value)}
+            error={errors.password}
           />
 
-          <InputGroup
-            labelName='New Password'
-            inputType='password'
-            inputName='password'
-            placeholderName='New Password'
-          />
+          <div className='InputGroup'>
+            <label htmlFor='newPassword'>New Password</label>
+            <div className='PasswordContainer'>
+              <input
+                type='password'
+                name='newPassword'
+                placeholder='New Password'
+                onChange={(e) => setNewPass(e.target.value)}
+              />
+              <i
+                className='material-icons visibilityIcon'
+                onClick={showPassHandler}
+              >
+                visibility_off
+              </i>
+            </div>
+            <small className='errorMsg'>{errors ? errors.newPass : ''}</small>
+          </div>
 
-          <InputGroup
-            labelName='Confirm New Password'
-            inputType='password'
-            inputName='confirm-new-password'
-            placeholderName='Confirm New Password'
-          />
+          <div className='InputGroup'>
+            <label htmlFor='confirm-new-password'>Confirm New Password</label>
+            <div className='PasswordContainer'>
+              <input
+                type='password'
+                name='confirm-new-password'
+                placeholder='Confirm New Password'
+                onChange={(e) => setNewPass2(e.target.value)}
+              />
+              <i
+                className='material-icons visibilityIcon'
+                onClick={showPassHandler}
+              >
+                visibility_off
+              </i>
+            </div>
+            <small className='errorMsg'>{errors ? errors.newPass2 : ''}</small>
+          </div>
         </div>
-        <button className='UpdatePassBtn'>Update Password</button>
+        <button className='UpdatePassBtn' onClick={getCurrentPassHandler}>
+          Update Password
+        </button>
         <small className='goBack' onClick={toggleAuth2}>
           Back
         </small>
@@ -217,10 +274,20 @@ const LandingPage = () => {
       setLoginSide(true);
     }
 
+    if (currentPass && currentPass.passUpdated) {
+      setResetPassSide(false);
+      setLoginSide(true);
+
+      dispatch({
+        type: GET_CURRENT_PASSWORD_SUCCESS,
+        payload: {},
+      });
+    }
+
     if (currentUser.isAuthenticated) {
       navigate('/dashboard');
     }
-  }, [registerStatus, currentUser, navigate]);
+  }, [registerStatus, currentUser, navigate, currentPass, dispatch]);
 
   return (
     <div className='Landing'>

@@ -1,5 +1,9 @@
 const express = require('express');
-const { userRegister, userLogin } = require('../controllers/userController');
+const {
+  userRegister,
+  userLogin,
+  updateUserPass,
+} = require('../controllers/userController');
 const router = express.Router();
 
 // @Route POST api/users/register
@@ -11,5 +15,10 @@ router.post('/register', userRegister);
 // @Desc route to login user
 // @Access Public
 router.post('/login', userLogin);
+
+// @Route Post api/users/update-pass
+// @Desc route to update user pass
+// @Access Public
+router.put('/update-pass', updateUserPass);
 
 module.exports = router;

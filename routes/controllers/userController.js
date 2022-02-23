@@ -12,6 +12,9 @@ const validateRegisterInput = require('../../validation/register');
 //load login input validation
 const validateLoginInput = require('../../validation/login');
 
+//load update password input validation
+const validateUpdatePasswordInput = require('../../validation/updatePassword');
+
 //register user controller
 const userRegister = (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
@@ -51,6 +54,7 @@ const userRegister = (req, res) => {
 
 // login user controller / return jwt token
 const userLogin = (req, res) => {
+  // console.log(req.body);
   const { errors, isValid } = validateLoginInput(req.body);
 
   //check validation
@@ -60,8 +64,6 @@ const userLogin = (req, res) => {
 
   const email = req.body.email;
   const password = req.body.password;
-
-  console.log(email, password);
 
   // find user by email
   User.findOne({ email }).then((user) => {
@@ -82,6 +84,7 @@ const userLogin = (req, res) => {
           id: user._id,
           name: user.name,
           email: user.email,
+          password: user.password,
         };
 
         //sign Token
@@ -101,7 +104,45 @@ const userLogin = (req, res) => {
   });
 };
 
+//update password
+const updateUserPass = (req, res) => {
+  // console.log(req.body);
+  const { errors, isValid } = validateUpdatePasswordInput(req.body);
+
+  if (!isValid) {
+    console.log(errors);
+    return res.status(400).json(errors);
+  }
+
+  User.findOne({ email: req.body.email }).then((user) => {
+    if (!user) {
+      errors.email = 'No user with the specified email';
+      return res.status(400).json(errors);
+    }
+
+    bcrypt.compare(req.body.password, user.password).then((isMatch) => {
+      if (!isMatch) {
+        errors.password = 'Password does not match with saved credentials';
+        return res.status(400).json(errors);
+      }
+    });
+
+    //hash new user password and save to db
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(req.body.newPass, salt, (err, hash) => {
+        if (err) throw err;
+        user.password = hash;
+        user
+          .save()
+          .then(() => res.json({ passUpdated: true }))
+          .catch((err) => console.log(err));
+      });
+    });
+  });
+};
+
 module.exports = {
   userRegister,
   userLogin,
+  updateUserPass,
 };

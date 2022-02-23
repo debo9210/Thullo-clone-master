@@ -4,6 +4,8 @@ import {
   REGISTER_USER_REQUEST,
   GET_ERRORS,
   SET_CURRENT_USER,
+  GET_CURRENT_PASSWORD_REQUEST,
+  GET_CURRENT_PASSWORD_SUCCESS,
 } from '../constant';
 import setAuthToken from '../../utils/setAuthToken';
 import axios from 'axios';
@@ -34,6 +36,8 @@ export const registerUser = (formData, navigate) => (dispatch) => {
 export const loginUser = (formData) => (dispatch) => {
   dispatch(clearErrors());
 
+  // console.log(formData);
+
   axios
     .post('api/users/login', formData)
     .then((res) => {
@@ -56,6 +60,29 @@ export const loginUser = (formData) => (dispatch) => {
         payload: err.response.data,
       })
     );
+};
+
+//update user pass
+export const updateUserPass = (formData) => async (dispatch) => {
+  dispatch(clearErrors());
+
+  // console.log(formData);
+
+  try {
+    dispatch({ type: GET_CURRENT_PASSWORD_REQUEST });
+
+    const { data } = await axios.put(`api/users/update-pass`, formData);
+
+    dispatch({
+      type: GET_CURRENT_PASSWORD_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_ERRORS,
+      payload: error.response.data,
+    });
+  }
 };
 
 //set logged in user

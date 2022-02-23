@@ -1,10 +1,8 @@
 const Validator = require('validator');
-const isEmpty = require('./isEmpty');
+const { isEmpty, regex } = require('./isEmpty');
+// const regex = require('./isEmpty');
 
 module.exports = validateRegisterInput = (data) => {
-  const regex =
-    /^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{6,30}$/;
-
   let errors = {};
 
   data.name = !isEmpty(data.name) ? data.name : '';

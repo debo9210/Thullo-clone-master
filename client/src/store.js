@@ -5,12 +5,14 @@ import { errorsReducer } from './redux/reducers/errorReducers';
 import {
   registerUserReducer,
   currentUserReducer,
+  currentPassReducer,
 } from './redux/reducers/authReducers';
 
 const reducers = combineReducers({
   errors: errorsReducer,
   registerUser: registerUserReducer,
   currentUser: currentUserReducer,
+  pass: currentPassReducer,
 });
 
 const initialState = {};

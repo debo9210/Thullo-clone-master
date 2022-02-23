@@ -1,4 +1,6 @@
 import {
+  GET_CURRENT_PASSWORD_REQUEST,
+  GET_CURRENT_PASSWORD_SUCCESS,
   REGISTER_USER_REQUEST,
   REGISTER_USER_SUCCESS,
   SET_CURRENT_USER,
@@ -33,6 +35,21 @@ export const currentUserReducer = (state = initialState, action) => {
         ...state,
         isAuthenticated: !isEmpty(action.payload),
         user: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const currentPassReducer = (state = {}, action) => {
+  switch (action.type) {
+    case GET_CURRENT_PASSWORD_REQUEST:
+      return { ...state, loading: true };
+    case GET_CURRENT_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        currentPass: action.payload,
       };
     default:
       return state;
