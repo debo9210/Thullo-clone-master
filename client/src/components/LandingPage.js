@@ -8,6 +8,7 @@ import {
   updateUserPass,
 } from '../redux/actions/authActions';
 import { showPassHandler } from '../utils/showPassHandler';
+import GoogleLogin from './googleLogin';
 import landingLogo from '../images/Logo.svg';
 import googleLogo from '../images/google-logo.jpg';
 import '../css/landing.css';
@@ -188,10 +189,11 @@ const LandingPage = () => {
             </small>
           </div>
           <h4 className='BreakLine'>or</h4>
-          <button className='GoogleAuth'>
+          {/* <button className='GoogleAuth' onClick={socialLoginHandler}>
             <img src={googleLogo} alt='google-logo' />
             <span>Authorize with Google</span>
-          </button>
+          </button> */}
+          <GoogleLogin googleLogo={googleLogo} />
         </div>
       </div>
     </div>
@@ -284,7 +286,7 @@ const LandingPage = () => {
       });
     }
 
-    if (currentUser.isAuthenticated) {
+    if (currentUser && currentUser.isAuthenticated) {
       navigate('/dashboard');
     }
   }, [registerStatus, currentUser, navigate, currentPass, dispatch]);

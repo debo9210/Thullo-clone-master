@@ -23,6 +23,11 @@ mongoose
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// //passport middleware
+// app.use(passport.initialize());
+// // deserialize cookie from the browser
+// app.use(passport.session());
+
 //Use Routes
 app.use('/api/users', users);
 

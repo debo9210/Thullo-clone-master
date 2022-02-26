@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logoutUser } from '../redux/actions/authActions';
+import GoogleLogout from './googleLogout';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -14,6 +15,8 @@ const Dashboard = () => {
     navigate('/');
   };
 
+  const accessData = JSON.parse(localStorage.getItem('accessData'));
+
   useEffect(() => {
     if (!currentUser.isAuthenticated) {
       navigate('/');
@@ -22,7 +25,21 @@ const Dashboard = () => {
 
   return (
     <div>
-      <p
+      {accessData && accessData.socialLogin ? (
+        <GoogleLogout />
+      ) : (
+        <p
+          style={{
+            color: 'blue',
+            textDecoration: 'underline',
+            cursor: 'pointer',
+          }}
+          onClick={logoutHandler}
+        >
+          Logout
+        </p>
+      )}
+      {/* <p
         style={{
           color: 'blue',
           textDecoration: 'underline',
@@ -31,8 +48,9 @@ const Dashboard = () => {
         onClick={logoutHandler}
       >
         Logout
-      </p>
+      </p> */}
       <h1>dashboard</h1>
+      {/* <GoogleLogout /> */}
     </div>
   );
 };
